@@ -1,0 +1,190 @@
+#include "mainwindow.h"
+#include "calcu.h"
+
+#include "ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)//为指针指向对象开辟内存
+{
+    ui->setupUi(this);//获取ui设计界面的
+
+//输入操作数
+    connect(ui->pushButton0,&QPushButton::pressed,//输入数字0
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(0));//将0给输入处理
+        }
+    );
+    connect(ui->pushButton1,&QPushButton::pressed,//输入数字1
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(1));
+        }
+    );
+    connect(ui->pushButton2,&QPushButton::pressed,//输入数字2
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(2));
+        }
+    );
+    connect(ui->pushButton3,&QPushButton::pressed,//输入数字3
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(3));
+        }
+    );
+    connect(ui->pushButton4,&QPushButton::pressed,//输入数字4
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(4));
+        }
+    );
+    connect(ui->pushButton5,&QPushButton::pressed,//输入数字5
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(5));
+        }
+    );
+    connect(ui->pushButton6,&QPushButton::pressed,//输入数字6
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(6));
+        }
+    );
+    connect(ui->pushButton7,&QPushButton::pressed,//输入数字7
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(7));
+        }
+    );
+    connect(ui->pushButton8,&QPushButton::pressed,//输入数字8
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(8));
+        }
+    );
+    connect(ui->pushButton9,&QPushButton::pressed,//输入数字9
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString::number(9));
+        }
+    );
+    connect(ui->pushButtonpi,&QPushButton::pressed,//输入pi
+            [=]()//获取外部全部变量
+        {
+         ui->lineEdit->insert(QString("pi"));
+        }
+    );
+    connect(ui->pushButtondian,&QPushButton::pressed,//小数点
+            [=]()
+        {
+         ui->lineEdit->insert(QString("."));
+        }
+    );
+
+//输入运算符
+    connect(ui->pushButtonadd,&QPushButton::pressed,//加
+            [=]()
+        {
+         ui->lineEdit->insert(QString("+"));
+        }
+    );
+    connect(ui->pushButtonsub,&QPushButton::pressed,//减
+            [=]()
+        {
+         ui->lineEdit->insert(QString("-"));
+        }
+    );
+    connect(ui->pushButtonmul,&QPushButton::pressed,//乘
+            [=]()
+        {
+         ui->lineEdit->insert(QString("*"));
+        }
+    );
+    connect(ui->pushButtonchu,&QPushButton::pressed,//除
+            [=]()
+        {
+         ui->lineEdit->insert(QString("/"));
+        }
+    );
+    connect(ui->pushButtonyu,&QPushButton::pressed,//求余
+            [=]()
+        {
+         ui->lineEdit->insert(QString("%"));
+        }
+    );
+    connect(ui->pushButtonmi,&QPushButton::pressed,//幂
+            [=]()
+        {
+         ui->lineEdit->insert(QString("^"));
+        }
+    );
+    connect(ui->pushButtonsin,&QPushButton::pressed,//sin
+            [=]()
+        {
+         ui->lineEdit->insert(QString("sin("));
+        }
+    );
+    connect(ui->pushButtoncos,&QPushButton::pressed,//cos
+            [=]()
+        {
+         ui->lineEdit->insert(QString("cos("));
+        }
+    );
+    connect(ui->pushButtontan,&QPushButton::pressed,//tan
+            [=]()
+        {
+         ui->lineEdit->insert(QString("tan("));
+        }
+    );
+    connect(ui->pushButtonsqrt,&QPushButton::pressed,//求平方根
+            [=]()
+        {
+         ui->lineEdit->insert(QString("sqrt("));
+        }
+    );
+    connect(ui->pushButtonleft,&QPushButton::pressed,//左括号
+            [=]()
+        {
+         ui->lineEdit->insert(QString("("));
+        }
+    );
+    connect(ui->pushButtonright,&QPushButton::pressed,//右括号
+            [=]()
+        {
+         ui->lineEdit->insert(QString(")"));
+        }
+    );
+//计算器功能模块
+    connect(ui->pushButtonback,&QPushButton::pressed,//退回一位
+            [=]()
+        {
+         ui->lineEdit->backspace();
+        }
+    );
+    connect(ui->pushButtonclear,&QPushButton::pressed,//清零
+            [=]()
+        {
+         ui->lineEdit->clear();
+        }
+    );
+//等于号，进行处理
+    connect(ui->pushButtonis,&QPushButton::pressed,//等于号
+            [=]()
+        {
+         ui->lineEdit->insert(QString("="));
+         QString exp = ui->lineEdit->text();
+         Calculator cal;
+         ui->lineEdit->insert(QString::number(cal.doIt(exp)));
+         ui->labelnum->setText(ui->lineEdit->text());//显示历史式子
+        }
+    );
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
